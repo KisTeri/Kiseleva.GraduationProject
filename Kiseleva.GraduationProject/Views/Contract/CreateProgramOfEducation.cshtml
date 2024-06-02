@@ -1,0 +1,55 @@
+﻿@model CreateContractPersonViewModel
+
+@{
+    ViewData["Title"] = "Create Page";
+}
+<body class="body2">
+    <a asp-controller="Person" asp-action="Index"><p style="font-size:90%; margin-top: 30px; margin-left: 20px;">Вернуться обратно</p></a>
+
+    <h3>Добавление информации в Договор</h3>
+
+    <form method="post" asp-antiforgery="true" asp-action="CreateProgramOfEducation" enctype="multipart/form-data">
+
+        <input type="hidden"/>
+    
+       @*  <div class="form-group">
+            <label asp-for="Name">Название программы обучения</label>
+            <input asp-for="Name" class="form-control" placeholder="Название программы обучения" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="ProgramOfEducation.KindOfEducation.Name">Вид обучения</label>
+            <input asp-for="ProgramOfEducation.KindOfEducation.Name" class="form-control" placeholder="Вид обучения" />
+            <span asp-validation-for="ProgramOfEducation.KindOfEducation.Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Price">Цена</label>
+            <input asp-for="Price" class="form-control" placeholder="Цена" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PriceInWords">Цена прописью</label>
+            <input asp-for="PriceInWords" class="form-control" placeholder="Цена прописью" />
+            <span asp-validation-for="PriceInWords" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="HoursAmount">Количество часов обучения</label>
+            <input asp-for="HoursAmount" class="form-control" placeholder="Количество часов обучения" />
+            <span asp-validation-for="HoursAmount" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="EducationLength">Длительность обучения</label>
+            <input asp-for="EducationLength" class="form-control" placeholder="Длительность обучения" />
+            <span asp-validation-for="EducationLength" class="text-danger"></span>
+        </div> *@
+
+        <button type="submit" class="btn btn-primary" style="margin-left: 20px;">Добавить</button>
+
+        <button type="submit" asp-controller="Contract" asp-action="CreateProgramOfEducation" asp-route-id="Id" class="btn btn-primary" style="margin-left: 10px;">Создать договор</button>
+    </form>
+</body>

@@ -1,0 +1,177 @@
+﻿@using Kiseleva.GraduationProject.Data
+@using Kiseleva.GraduationProject.Entities
+@using Microsoft.EntityFrameworkCore
+
+@model InformationAboutOrganisationViewModel
+@inject ApplicationDbContext context
+@{
+	ViewData["Title"] = "Card Page";
+	
+}
+
+<body class="body2">
+	<a asp-controller="Organisation" asp-action="Index"><p style="font-size:90%; margin-top: 30px;">Вернуться обратно</p></a>
+
+	<h3 style="margin-bottom:0!important">Информация об организации</h3>
+
+	<p class="title-1" style="margin-top: 30px" style="margin-bottom:0!important">
+		Полное название организации:
+		<p class="t-1">@Model.FullName</p>
+	</p>
+
+	<p class="title-1" style="margin-bottom:0!important">
+		Краткое название организации:
+		<p class="t-1">@Model.ShortName</p>
+	</p>
+
+	<p class="title-1" style="margin-bottom:0!important">
+		Электронная почта:
+		<p class="t-1">@Model.Email</p>
+	</p>
+
+	<p class="title-1" style="margin-bottom:0!important">
+		Номер телефона:
+		<p class="t-1">@Model.PhoneNumber</p>
+	</p>
+
+
+	<p class="title-1" style="margin-bottom:0!important">
+		ФИО работника организации:
+		<p class="t-1">@Model.Person.FullName</p>
+	</p>
+
+	<p class="title-1" style="margin-bottom:0!important">
+		Должность работника организации:
+		<p class="t-1">@Model.Person.KindOfPerson</p>
+	</p>
+
+	<p class="title-1" style="margin-bottom:0!important">
+		Документ, на основании которого действует работник:
+	<p class="t-1">@Model.DocumentOfOrganisation</p>
+	</p>
+
+
+	<p class="title-1" style="margin-bottom:0!important">
+		Юридический адрес:
+	<p class="t-1">
+			@Model.Addresses.Where(x => x.KindOfAddress.ToLower() == "юридический").Select(x => x.Region).First(), @Model.Addresses.Where(x => x.KindOfAddress.ToLower() == "юридический").Select(x => x.District).First() г. @Model.Addresses.Where(x => x.KindOfAddress.ToLower() == "юридический").Select(x => x.Settlement).First() ул. @Model.Addresses.Where(x => x.KindOfAddress.ToLower() == "юридический").Select(x => x.Street).First()
+		дом @Model.Addresses.Where(x => x.KindOfAddress.ToLower() == "юридический").Select(x => x.Building).First(), кв @Model.Addresses.Where(x => x.KindOfAddress.ToLower() == "юридический").Select(x => x.Apartment).First(), индекс: @Model.Addresses.Where(x => x.KindOfAddress.ToLower() == "юридический").Select(x => x.Index).First()
+		</p>
+	</p>
+
+
+	<p class="title-1" style="margin-bottom:0!important">
+		Фактический адрес:
+	<p class="t-1">
+			@Model.Addresses.Where(x => x.KindOfAddress.ToLower() == "фактический").Select(x => x.Region).First(), @Model.Addresses.Where(x => x.KindOfAddress.ToLower() == "фактический").Select(x => x.District).First() г. @Model.Addresses.Where(x => x.KindOfAddress.ToLower() == "фактический").Select(x => x.Settlement).First() ул. @Model.Addresses.Where(x => x.KindOfAddress.ToLower() == "фактический").Select(x => x.Street).First()
+		дом @Model.Addresses.Where(x => x.KindOfAddress.ToLower() == "фактический").Select(x => x.Building).First(), кв @Model.Addresses.Where(x => x.KindOfAddress.ToLower() == "фактический").Select(x => x.Apartment).First(), индекс: @Model.Addresses.Where(x => x.KindOfAddress.ToLower() == "фактический").Select(x => x.Index).First()
+	</p>
+	</p>
+
+
+	<table class="table table-bordered table-striped table" style="width:100%;">
+		<thead>
+			<tr>
+				<th>
+					Р/с
+				</th>
+
+				<th>
+					К/с
+				</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td width="8%"> @Model.RS @Model.BankForRS</td>
+				<td width="8%"> @Model.KS</td>
+			</tr>
+		</tbody>
+	</table>
+	
+
+	<table class="table table-bordered table-striped table" style="width:100%;">
+		<thead>
+			<tr>
+				<th>
+					БИК
+				</th>
+
+				<th>
+					ИНН
+				</th>
+
+				<th>
+					ОГРН
+				</th>
+
+				<th>
+					КПП
+				</th>
+
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td width="8%"> @Model.BIK</td>
+				<td width="8%"> @Model.INN</td>
+				<td width="8%"> @Model.OGRN</td>
+				<td width="8%"> @Model.KPP</td>
+			</tr>
+		</tbody>
+	</table>
+
+	@using (Html.BeginForm("DownloadFile", "Organisation", FormMethod.Post))
+	{
+		<input type="hidden" id="hfFileId" name="FileId" />
+		<input type="submit" id="btnDownload" value="Скачать" style="display:none" />
+	}
+
+	<table cellpadding="0" cellspacing="0">
+		<tr>
+			<th style="width:130px;">Номер файла</th>
+			<th style="width:150px; text-align:left;">Название файла</th>
+			<th style="width:100px; text-align:center;">Скачать</th>
+			<th style="width:90px; text-align:center;">Удалить</th>
+		</tr> 
+
+		@if (Model.Files.Count() > 0)
+		{
+			foreach (var file in Model.Files)
+			{
+				<tr>
+					<td>@file.Id</td>
+					<td style="text-align:left;">@file.FileName</td>
+					<td style="text-align:center;"><a class="btn btn-outline-primary" href="javascript:;" onclick="DownloadFile(@file.Id)">Скачать</a></td>
+					@* <td><a style="color: red" asp-action="DeleteFile" asp-controller="Person" asp-route-id="@file.Id">Удалить</a></td> *@
+					<td style="text-align:center;">
+						<form asp-controller="Organisation" asp-action="DeleteFile" method="post" asp-route-id="@file.Id">
+							<input type="hidden" asp-for="@file.Id" />
+							<input type="submit" value="Удалить" class="btn btn-outline-danger" />
+						</form>
+					</td>
+				</tr>
+			}
+		}
+		else
+		{
+			<tr>
+				<td colspan="3">&nbsp;</td>
+			</tr>
+		}
+	</table>
+
+
+	<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript">
+		function DownloadFile(fileId) {
+			$("#hfFileId").val(fileId);
+			$("#btnDownload")[0].click();
+		};
+	</script>
+</body>
+
+
+

@@ -1,0 +1,124 @@
+﻿@model EditPersonViewModel
+
+@{
+    ViewData["Title"] = "EditPerson Page";
+}
+
+<a asp-controller="Person" asp-action="Index"><p style="font-size:90%; margin-top: 30px;">Вернуться обратно</p></a>
+
+<h3>Редактирование информации об ученике</h3>
+
+<form method="post" asp-antiforgery="true" asp-action="EditPerson" enctype="multipart/form-data">
+    <input type="hidden" value="@Model.Id" id="@Model.Id" />
+    @Html.HiddenFor(model => model.Address.Id)
+    
+    <div class="form-group">
+        <label asp-for="LastName">Фамилия</label>
+        <input asp-for="LastName" class="form-control" placeholder="Фамилия"/>
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="FirstName">Имя</label>
+        <input asp-for="FirstName" class="form-control" placeholder="Имя" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MiddleName">Отчество</label>
+        <input asp-for="MiddleName" class="form-control" placeholder="Отчество" />
+        <span asp-validation-for="MiddleName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DateOfBirth">Дата рождения</label>
+        <input asp-for="DateOfBirth" class="form-control" placeholder="Дата рождения" />
+        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PhoneNumber">Номер телефона</label>
+        <input asp-for="PhoneNumber" class="form-control" placeholder="Номер телефона" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="KindOfPerson">Род человека(ученик, директор организации и т.д.)</label>
+        <input asp-for="KindOfPerson" class="form-control" placeholder="Род человека" />
+        <span asp-validation-for="KindOfPerson" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address.Region">Область (республика, край, автономный округ)</label>
+        <input asp-for="Address.Region" class="form-control" placeholder="Область" />
+        <span asp-validation-for="Address.Region" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address.District">Район (необязательное поле)</label>
+        <input asp-for="Address.District" class="form-control" placeholder="Район" />
+        <span asp-validation-for="Address.District" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address.Settlement">Город (поселок, деревня)</label>
+        <input asp-for="Address.Settlement" class="form-control" placeholder="Город" />
+        <span asp-validation-for="Address.Settlement" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address.Street">Улица</label>
+        <input asp-for="Address.Street" class="form-control" placeholder="Улица" />
+        <span asp-validation-for="Address.Street" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address.Building">Дом (строение)</label>
+        <input asp-for="Address.Building" class="form-control" placeholder="Дом" />
+        <span asp-validation-for="Address.Building" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Address.Apartment">Квартира</label>
+        <input asp-for="Address.Apartment" class="form-control" placeholder="Квартира" />
+        <span asp-validation-for="Address.Apartment" class="text-danger"></span>
+    </div>
+
+    @* <div class="form-group">
+        <label asp-for="KindOfDocument.Kind">Вид документа</label>
+        <input asp-for="KindOfDocument.Kind" class="form-control" placeholder="Документа" />
+        <span asp-validation-for="KindOfDocument.Kind" class="text-danger"></span>
+    </div> *@
+
+    <div class="form-group">
+        <label asp-for="Series">Серия</label>
+        <input asp-for="Series" class="form-control" placeholder="Серия" />
+        <span asp-validation-for="Series" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Number">Номер</label>
+        <input asp-for="Number" class="form-control" placeholder="Номер" />
+        <span asp-validation-for="Number" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="IssuedBy">Паспорт выдан</label>
+        <input asp-for="IssuedBy" class="form-control" placeholder="Паспорт выдан" />
+        <span asp-validation-for="IssuedBy" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="IssuedWhen">Дата выдачи</label>
+        <input asp-for="IssuedWhen" class="form-control" placeholder="Дата выдачи" />
+        <span asp-validation-for="IssuedWhen" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SNILS">СНИЛС</label>
+        <input asp-for="SNILS" class="form-control" placeholder="СНИЛС" />
+        <span asp-validation-for="SNILS" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-outline-primary">Сохранить</button>
+</form>

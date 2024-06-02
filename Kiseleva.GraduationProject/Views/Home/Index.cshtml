@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<body class="body2">
+@*     <div class="search">
+        <div class="searchfield">
+            <form class="d-flex" role="search" method="get" asp-controller="Home" asp-action="IndexAfterSearch">
+                <input class="form-control me-2" type="text" placeholder="Поиск" aria-label="Search" name="SearchString">
+                <button class="btn btn-outline-secondary" type="submit" value="Search">Найти</button>
+            </form>
+        </div>
+
+        <div class="verticalLine">
+            <a class="cleaning" asp-controller="Home" asp-action="Index">Сброс</a>
+        </div>
+    </div>
+ *@
+
+    <div class="menu">
+        <a class="menu-person" asp-controller="Person" asp-action="Index">
+            <img src="~/img/user (3).png" style="height:112px; width:112px;">
+            <p class="menu-title">Ученики</p>
+        </a>
+
+        <a class="menu-organisation" asp-controller="Organisation" asp-action="Index">
+            <img src="~/img/office-building.png" style="height:120px; width:120px; margin-top: 18px;">
+            <p class="menu-title-2">Организации</p>
+        </a>
+
+        <a class="menu-CZN" asp-controller="CZN" asp-action="Index">
+            <img src="~/img/briefcase.png" style="height:112px; width:112px; margin-top: 12px; margin-left: 10px;">
+            <p class="menu-title-3">ЦЗН</p>
+        </a>
+    </div>
+      
+</body>

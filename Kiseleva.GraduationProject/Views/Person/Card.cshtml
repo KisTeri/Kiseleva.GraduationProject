@@ -1,0 +1,139 @@
+﻿@using Kiseleva.GraduationProject.Data
+@using Kiseleva.GraduationProject.Entities
+@using Microsoft.EntityFrameworkCore
+
+@model CardPersonViewModel 
+@inject ApplicationDbContext context
+@{
+	ViewData["Title"] = "Card Page";
+	
+}
+
+<body class="body2">
+	<a asp-controller="Person" asp-action="Index"><p style="font-size:90%; margin-top: 30px;">Вернуться обратно</p></a>
+
+	<p class="title-1" style="margin-top: 30px">
+		ФИО:
+		<p class="t-1">
+			@Model.FullName
+		</p>
+	</p>
+
+	<p class="title-1">
+		Дата рождения:
+		<p class="t-1">
+			@Model.DateOfBirth г.
+		</p>
+	</p>
+
+	<p class="title-1">
+		Номер телефона:
+		<p class="t-1">@Model.PhoneNumber</p>
+	</p>
+
+
+	<p class="title-1">
+		Адрес:
+		<p class="t-1">@Model.Address.Region, @Model.Address.District г. @Model.Address.Settlement ул. @Model.Address.Street
+				дом @Model.Address.Building, кв. @Model.Address.Apartment
+		</p>
+	</p>
+	
+
+	<p class="title-1">
+		СНИЛС:
+		<p class="t-1">@Model.SNILS</p>
+	</p>
+
+	<table class="table table-bordered table-striped table" style="width:100%;">
+		<thead>
+			<tr>
+				<th>
+					Документ
+				</th>
+
+				<th>
+					Серия
+				</th>
+
+				<th>
+					Номер
+				</th>
+
+				<th>
+					Кем выдан
+				</th>
+
+				<th>
+					Когда выдан
+				</th>
+
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr>
+				<td width="1%">Паспорт</td> 
+				<td width="8%"> @Model.Series</td>
+				<td width="8%"> @Model.Number</td>
+				<td width="18%"> @Model.IssuedBy</td>
+				<td width="8%"> @Model.IssuedWhen</td>
+			</tr>
+		</tbody>
+	</table>
+
+	@* @await Html.PartialAsync("_File", context.Persons.Include(x => x.Files).FirstAsync()) *@
+	@* @using (Html.BeginForm("DownloadFile", "Person", FormMethod.Post))
+	{
+		<input type="hidden" id="hfFileId" name="FileId" />
+		<input type="submit" id="btnDownload" value="Скачать" style="display:none" />
+	}
+
+	<hr /> *@
+
+	<table cellpadding="0" cellspacing="0">
+		<tr>
+			<th style="width:130px">Номер файла</th>
+			<th style="width:150px">Название файла</th>
+			<th style="width:80px">Скачать</th>
+			<th style="width:80px;">Удалить</th>
+		</tr>
+
+		@if (Model.Files.Count() > 0)
+		{
+			foreach (var file in Model.Files)
+			{
+				<tr>
+					<td>@file.Id</td>
+					<td>@file.FileName</td>
+					<td><a href="javascript:;" onclick="DownloadFile(@file.Id)">Скачать</a></td>
+					@* <td><a style="color: red" asp-action="DeleteFile" asp-controller="Person" asp-route-id="@file.Id">Удалить</a></td> *@
+					<td>
+						<form asp-controller="Person" asp-action="DeleteFile" method="post" asp-route-id="@file.Id">
+							<input type="hidden" asp-for="@file.Id" />
+							<input type="submit" value="Удалить" class="btn btn-outline-danger" />
+						</form>
+					</td>
+				</tr>
+			}
+		}
+		else
+		{
+			<tr>
+				<td colspan="3">&nbsp;</td>
+			</tr>
+		}
+	</table>
+
+
+	<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript">
+		function DownloadFile(fileId) {
+			$("#hfFileId").val(fileId);
+			$("#btnDownload")[0].click();
+		};
+	</script>
+</body>
+
+
+

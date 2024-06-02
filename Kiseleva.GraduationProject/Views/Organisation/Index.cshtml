@@ -1,0 +1,98 @@
+﻿@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@using Kiseleva.GraduationProject.Entities
+@model IPagedList<Organisation>
+
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<body class="body2">
+    <a asp-controller="Home" asp-action="Index"><p style="font-size:90%; margin-top: 30px;">Вернуться на Главную</p></a>
+
+    <div class="search2">
+
+        <div class="dropdown">
+            <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Сортировка
+            </a>
+
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" asp-controller="Organisation" asp-action="Index" asp-route-sortOrder="@ViewBag.NameSortParm" asp-route-currentFilter="@ViewData["CurrentFilter"]">А-Я</a></li>
+                <li><a class="dropdown-item" asp-controller="Organisation" asp-action="Index" asp-route-sortOrder="@ViewBag.NameSortParm" asp-route-currentFilter="@ViewData["CurrentFilter"]">Я-А</a></li>
+            </ul>
+        </div>
+
+        <div class="dropdown2">
+            <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Статистика
+            </a>
+
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+        </div>
+
+        <div class="searchfield2">
+            <form class="d-flex" role="search" method="get" asp-controller="Organisation" asp-action="Index">
+                <input class="form-control me-2" type="text" placeholder="Поиск" aria-label="Search" name="SearchString" value="@ViewData["CurrentFilter"]">
+                <button class="btn btn-outline-secondary" type="submit" value="Search">Найти</button>
+            </form>
+        </div>
+
+        <div class="verticalLine">
+            <a class="cleaning" asp-controller="Organisation" asp-action="Index">Сброс</a>
+        </div>
+    </div>
+
+    <h3>Организации</h3>   
+
+    <a asp-controller="Organisation" asp-action="CreateOrganisation" class="btn btn-outline-primary" style="margin-bottom: 20px;">
+        Добавить организацию
+    </a>
+
+    
+
+    <div class="people-list">
+        <p class="text1">№</p>
+        <div class="verticalLine2"><a class="cleaning2"></a></div>
+        <p class="text2" style="color: white!important">Название организация</p>
+    </div>
+
+    @foreach(var item in Model)
+    {
+        <div class="people-list2">
+            <p class="text1">@item.Id</p>
+            <div class="verticalLine2"><a class="cleaning2"></a></div>
+            <a class="text2" asp-controller="Organisation" asp-action="InformationAboutOrganisation" asp-route-id="@item.Id">@item.FullName</a>
+            <a asp-controller="Organisation" asp-action="EditOrganisation" asp-route-id="@item.Id" class="btn btn-outline-primary" style="margin-left: 450px;">
+                <i class="bi bi-pen"></i>
+            </a>
+
+            <a class="btn btn-outline-danger" asp-controller="Organisation" asp-action="Delete" asp-route-id="@item.Id">
+                <i class="bi bi-trash3"></i>
+            </a>
+
+            <a class="btn btn-outline-success" asp-controller="Contract" asp-action="CreateOrganisationContract" asp-route-id="@item.Id">
+                <i class="bi bi-file-earmark"></i>
+            </a>
+
+            <a class="btn btn btn-outline-warning" asp-controller="Organisation" asp-action="File" asp-route-id="@item.Id">
+                <i class="bi bi-download"></i>
+            </a>
+        </div>    
+    }
+
+    <p style="margin-top: 30px;">Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount</p>
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewData["CurrentFilter"] }))
+</body>
+
+
+
