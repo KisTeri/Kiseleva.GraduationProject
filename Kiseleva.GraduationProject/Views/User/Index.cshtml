@@ -1,0 +1,53 @@
+﻿@using Kiseleva.GraduationProject.Areas.Identity.Data
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@using Kiseleva.GraduationProject.Entities
+@model IPagedList<UsersViewModel>
+@inject UserManager<ApplicationUser> UserManager
+
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<body class="body2">
+    <a asp-controller="Home" asp-action="Index"><p style="font-size:90%; margin-top: 30px;">Вернуться на Главную</p></a>
+
+    <h3>Сотрудники</h3>
+
+    <a id="register" asp-area="Identity" asp-page="/Account/Register" class="btn btn-outline-primary" style="margin-bottom: 20px;">
+        Добавить сотрудника
+    </a>
+
+    <div class="people-list">
+        <p class="text1" style="color: white!important; margin-left: 50px;">ФИО</p>
+        <p class="text2" style="color: white!important; margin-left: 470px;">Уровень доступа</p>
+    </div>
+
+    @foreach (var item in @Model)
+    {
+        <div class="people-list2">
+            <a class="text2" style="margin-left: 50px; margin-top: 12px; width:460px!important;" asp-controller="User" asp-action="UserPersonalInformation" asp-route-id="@item.Id">@item.LastName @item.FirstName @item.MiddleName</a>
+
+            <p class="text1">@item.Role</p>
+
+            <a asp-controller="User" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary" style="margin-left: 560px;">
+                <i class="bi bi-pen"></i>
+            </a>
+
+            <a class="btn btn-outline-danger" asp-controller="User" asp-action="Delete" asp-route-id="@item.Id">
+                <i class="bi bi-trash3"></i>
+            </a>
+        </div>    
+    }
+
+    <p style="margin-top: 30px;">Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount</p> 
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewData["CurrentFilter"] }))
+</body>
+
+
+

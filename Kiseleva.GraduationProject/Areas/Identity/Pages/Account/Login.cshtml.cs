@@ -61,6 +61,7 @@ namespace Kiseleva.GraduationProject.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+
             [Required]
             [DataType(DataType.Text)]
             [Display(Name = "Логин")]
@@ -136,7 +137,7 @@ namespace Kiseleva.GraduationProject.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Неудачная попытка входа.");
                     return Page();
                 }
             }

@@ -1,0 +1,49 @@
+﻿@using Kiseleva.GraduationProject.Entities
+@using Microsoft.EntityFrameworkCore
+
+@model UserPersonalInformation 
+
+@{
+	ViewData["Title"] = "UserPersonalInformation Page";
+	
+}
+
+<body class="body2">
+	<a asp-controller="User" asp-action="Index"><p style="font-size:90%; margin-top: 30px;">Вернуться обратно</p></a>
+
+	<p class="title-1" style="margin-top: 30px">
+		ФИО:
+		<p class="t-1">
+			@Model.LastName @Model.FirstName @Model.MiddleName
+		</p>
+	</p>
+
+	<p class="title-1">
+		Логин:
+		<p class="t-1">
+			@Model.UserName 
+		</p>
+	</p>
+
+	<p class="title-1">
+		Роль/должность:
+		<p class="t-1">
+			@Model.Role
+		</p>
+	</p>
+
+	<p class="title-1">
+		Номер телефона:
+		<p class="t-1">@Model.PhoneNumber</p>
+	</p>
+
+	<p class="title-1">
+		Эл.почта:
+		<p class="t-1">@Model.Email</p>
+	</p>
+
+
+</body>
+
+
+

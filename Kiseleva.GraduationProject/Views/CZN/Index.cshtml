@@ -15,7 +15,7 @@
 
     <div class="search2">
 
-        <div class="dropdown">
+        <div class="dropdown" style="margin-left: 250px;">
             <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Сортировка
             </a>
@@ -23,18 +23,6 @@
             <ul class="dropdown-menu">
                 <li><a class="dropdown-item" asp-controller="CZN" asp-action="Index" asp-route-sortOrder="@ViewBag.NameSortParm" asp-route-currentFilter="@ViewData["CurrentFilter"]">А-Я</a></li>
                 <li><a class="dropdown-item" asp-controller="CZN" asp-action="Index" asp-route-sortOrder="@ViewBag.NameSortParm" asp-route-currentFilter="@ViewData["CurrentFilter"]">Я-А</a></li>
-            </ul>
-        </div>
-
-        <div class="dropdown2">
-            <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Статистика
-            </a>
-
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
         </div>
 
@@ -70,14 +58,16 @@
             <p class="text1">@item.Id</p>
             <div class="verticalLine2"><a class="cleaning2"></a></div>
             <a class="text2" asp-controller="CZN" asp-action="InformationAboutCZN" asp-route-id="@item.Id">@item.FullName</a>
+
             <a asp-controller="CZN" asp-action="EditCZN" asp-route-id="@item.Id" class="btn btn-outline-primary" style="margin-left: 450px;">
                 <i class="bi bi-pen"></i>
             </a>
-
-            <a class="btn btn-outline-danger" asp-controller="CZN" asp-action="Delete" asp-route-id="@item.Id">
-                <i class="bi bi-trash3"></i>
-            </a>
-
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="btn btn-outline-danger" asp-controller="CZN" asp-action="Delete" asp-route-id="@item.Id">
+                    <i class="bi bi-trash3"></i>
+                </a>
+            }
             <a class="btn btn btn-outline-warning" asp-controller="CZN" asp-action="File" asp-route-id="@item.Id">
                 <i class="bi bi-download"></i>
             </a>

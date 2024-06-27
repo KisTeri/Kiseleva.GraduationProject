@@ -48,7 +48,6 @@ namespace Kiseleva.GraduationProject.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 organisations = organisations.Where(p => p.FullName.Contains(searchString) || p.ShortName.Contains(searchString) || p.Email.Contains(searchString));
-                return View(organisations);
             }
 
             switch (sortOrder)

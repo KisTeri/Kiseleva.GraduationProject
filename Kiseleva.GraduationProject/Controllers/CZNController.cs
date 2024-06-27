@@ -44,7 +44,6 @@ namespace Kiseleva.GraduationProject.Controllers
 			if (!String.IsNullOrEmpty(searchString))
 			{
 				organisations = organisations.Where(p => p.FullName.Contains(searchString) || p.ShortName.Contains(searchString) || p.Email.Contains(searchString));
-				return View(organisations);
 			}
 
 			switch (sortOrder)
@@ -127,42 +126,7 @@ namespace Kiseleva.GraduationProject.Controllers
 					DocumentOfOrganisation = createCZNViewModel.DocumentOfOrganisation,
 					PhoneNumber = createCZNViewModel.PhoneNumber,
 				};
-				//	Person = new Person
-				//	{
-				//		LastName = createCZNViewModel.Person.LastName,
-				//		FirstName = createCZNViewModel.Person.FirstName,
-				//		MiddleName = createCZNViewModel.Person.MiddleName,
-				//		KindOfPerson = createCZNViewModel.Person.KindOfPerson,
-				//	},
-
-				//		Addresses = new List<Address>
-				//		{
-				//			new Address
-				//			{
-				//				Region = createCZNViewModel.Addresses[0].Region,
-				//				District = createCZNViewModel.Addresses[0].District,
-				//				Settlement = createCZNViewModel.Addresses[0].Settlement,
-				//				Street = createCZNViewModel.Addresses[0].Street,
-				//				Building = createCZNViewModel.Addresses[0].Building,
-				//				Apartment = createCZNViewModel.Addresses[0].Apartment,
-				//				Index = createCZNViewModel.Addresses[0].Index,
-				//				KindOfAddress = createCZNViewModel.Addresses[0].KindOfAddress,
-				//			},
-
-				//			new Address
-				//			{
-				//				Region = createCZNViewModel.Addresses[1].Region,
-				//				District = createCZNViewModel.Addresses[1].District,
-				//				Settlement = createCZNViewModel.Addresses[1].Settlement,
-				//				Street = createCZNViewModel.Addresses[1].Street,
-				//				Building = createCZNViewModel.Addresses[1].Building,
-				//				Apartment = createCZNViewModel.Addresses[1].Apartment,
-				//				Index = createCZNViewModel.Addresses[1].Index,
-				//				KindOfAddress = createCZNViewModel.Addresses[1].KindOfAddress,
-				//			}
-				//		},
-				//};
-
+				
 				_CZNRepository.Add(CZN);
 				_CZNRepository.Save();
 

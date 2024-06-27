@@ -95,8 +95,8 @@
 		<tr>
 			<th style="width:130px">Номер файла</th>
 			<th style="width:150px">Название файла</th>
-			<th style="width:80px">Скачать</th>
-			<th style="width:80px;">Удалить</th>
+@* 			<th style="width:80px">Скачать</th>
+			<th style="width:80px;">Удалить</th> *@
 		</tr>
 
 		@if (Model.Files.Count() > 0)
@@ -106,14 +106,15 @@
 				<tr>
 					<td>@file.Id</td>
 					<td>@file.FileName</td>
-					<td><a href="javascript:;" onclick="DownloadFile(@file.Id)">Скачать</a></td>
+					@* <td style="text-align:left;"><a class="btn btn-outline-primary" href="javascript:;" onclick="DownloadFile(@file.Id)">Скачать</a></td> *@
+					@* <td><a href="javascript:;" onclick="DownloadFile(@file.Id)">Скачать</a></td> *@
 					@* <td><a style="color: red" asp-action="DeleteFile" asp-controller="Person" asp-route-id="@file.Id">Удалить</a></td> *@
-					<td>
+					@* <td>
 						<form asp-controller="Person" asp-action="DeleteFile" method="post" asp-route-id="@file.Id">
 							<input type="hidden" asp-for="@file.Id" />
 							<input type="submit" value="Удалить" class="btn btn-outline-danger" />
 						</form>
-					</td>
+					</td> *@
 				</tr>
 			}
 		}

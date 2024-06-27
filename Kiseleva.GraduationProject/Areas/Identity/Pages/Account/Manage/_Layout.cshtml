@@ -8,21 +8,28 @@
         Layout = "/Areas/Identity/Pages/_Layout.cshtml";
     }
 }
+@if (User.IsInRole("Admin"))
+{
+    <a asp-controller="User" asp-action="Index"><p style="font-size:90%; margin-top: 30px; ">Вернуться обратно</p></a>
 
-<h3 style="margin-top: 30px; margin-bottom: 30px;">Управление аккаунтом</h3>
+    <h3 style="margin-top: 30px; margin-bottom: 30px;">Управление аккаунтом</h3>
 
-<div>
-    <h4>Настройки аккаунта</h4>
-    <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
-        </div>
-        <div class="col-md-9">
-            @RenderBody()
+    <div>
+        <h4>Настройки аккаунта</h4>
+        <div class="row">
+            <div class="col-md-3">
+                <partial name="_ManageNav" />
+            </div>
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
         </div>
     </div>
-</div>
-
+}
+else
+{
+    <h4 style="margin-top: 30px; margin-bottom: 30px;">У вас нет доступа!</h4>
+}
 @section Scripts {
     @RenderSection("Scripts", required: false)
 }

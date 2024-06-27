@@ -53,7 +53,6 @@ namespace Kiseleva.GraduationProject.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 people = people.Where(p => p.LastName.Contains(searchString) || p.FirstName.Contains(searchString) || p.MiddleName.Contains(searchString));
-                return View(people);
             }
 
             switch (sortOrder)
